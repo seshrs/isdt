@@ -81,7 +81,59 @@ you might get a wrong answer. At worst, a crash or memory corruption.
 
 ### Notes on split compilation (object files)
 
-Maybe notes on Rust here?
+For languages like C that have a notion of split compilation, Make is even more
+useful. If you have, say, 10 C files that all need to be compiled together, it
+is possible to run:
+
+```
+$ gcc file0.c file1.c ... file9.c -o mybinary
+$
+```
+
+This will compile each file and then link the results together at the end into
+`mybinary`.
+
+Unfortunately, this compilation process will throw all of the intermediate
+results away every time. If you only change `file2.c` and nothing else, you
+will still end up building all of the other C files again[^c-vs-header]. For
+this reason, it is possible to compile each file into a corresponding *object
+file* and then link those together:
+
+[^c-vs-header]: TODO note here about changing C files vs header files
+
+```
+$ gcc -c file0.c file1.c ... file9.c
+$ gcc file0.o file1.o ... file9.o -o mybinary
+$
+```
+
+Now if you change `file2.c`, you need only re-run `gcc -c file2.c` and the
+linking step, which together should be much faster than recompiling everything.
+
+It's hard to keep track of this manually, so we can build Make rules to handle
+this for us:
+
+```
+mybinary: file0.o file1.o file2.o  # and so on
+    gcc file0.o file1.o file2.o -o mybinary
+
+file0.o: file0.c
+    gcc -c file0.c
+
+file1.o: file1.c
+    gcc -c file1.c
+
+file2.o: file2.c
+    gcc -c file2.c
+```
+
+Now it is possible to modify any one C file and have the binary rebuilt
+automatically with the least amount of steps.
+
+You will notice that all of this typing is getting cumbersome. We will talk
+about a solution to this repetition later!
+
+TODO: Maybe notes on Rust here?
 
 ### The dependency graph
 
