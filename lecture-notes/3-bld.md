@@ -91,4 +91,18 @@ a DAG, just like Git uses!
 
 ### Why is a Makefile better than a shell script?
 
-Better performance and correctness
+As demonstrated, it's possible to build your projects using a simple shell
+script that builds every file every time. This is a fine solution, to a point;
+if the number of files or the compilation time for individual files grows, your
+build script will get slower over time.
+
+You might get fancy and add some features to compare m-times in your shell
+script. Maybe you add a function called `build_if_newer` and get 60% of the
+functionality of Make. This will work. But now you have to reason about an
+ever-growing shell script and if it perfectly implements your ideal build
+semantics. And Make will do it better still.
+
+Make has been around a long time and its performance and correctness are
+well understood. Its interface is well understood, too; people who know Make
+are at home in most other projects that use Make. Not so for a custom shell
+script.
