@@ -60,33 +60,28 @@ contents of the rules are opaque shell commands; it does not attempt to
 introspect on them, nor does it have an innate idea of what `gcc` means. You,
 the programmer, have to specify the relationship manually.
 
-### A more complicated example
+In order to instruct Make to rebuild `mybinary` when `main.c` is modified, add
+`main.c` as a *dependency* of `mybinary`:
 
-Imagine you have the following C file with a declaration for the function
-`myfunction`:
-
-```c
-// main.c
-#include <stdio.h>
-
-int myfunction();
-
-int main() {
-  printf("The result is %d\n", myfunction());
-  return 0;
-}
+```
+mybinary: main.c
+    gcc main.c
+    mv a.out mybinary
 ```
 
-and corresponding library with the *definition* for `myfunction`:
+Now Make will look at the <dfn><abbr title="modification time">m-time</abbr></dfn>
+of both `main.c` and `mybinary`. If `main.c` is newer, it will rebuild
+`mybinary`.
 
-```c
-// mylibrary.c
-int myfunction() {
-  return 4;
-}
-```
+It is possible to specify more than one dependency per target. If `main.c` also
+included a header, `myheader.h`, you should add `myheader.h` to the
+dependencies for `main.c`. Otherwise the binary and the header will be out of
+sync. For libraries use headers to specify interfaces, this is bad. At best,
+you might get a wrong answer. At worst, a crash or memory corruption.
 
-If you have a Makefile for this
+### Notes on split compilation (object files)
+
+Maybe notes on Rust here?
 
 ### The dependency graph
 
