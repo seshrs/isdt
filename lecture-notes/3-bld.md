@@ -1,4 +1,9 @@
-# Lecture 2
+---
+---
+
+# Lecture Notes: Build Systems
+
+## Lecture 2
 
 ### Targets and rules
 
