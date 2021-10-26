@@ -144,7 +144,33 @@ TODO: Maybe notes on Rust here?
 
 a DAG, just like Git uses!
 
-### What happens when you type make
+```
+┌───────────────────┐      
+│mybinary           │      
+└┬────────┬────────┬┘      
+┌▽──────┐┌▽──────┐┌▽──────┐
+│file0.o││file1.o││file2.o│
+└┬──────┘└┬──────┘└┬──────┘
+┌▽──────┐┌▽──────┐┌▽──────┐
+│file0.c││file1.c││file2.c│
+└───────┘└───────┘└───────┘
+```
+
+```
+$ cat Makefile
+mybinary: mybinary
+	touch mybinary
+$ make mybinary
+make: Circular mybinary <- mybinary dependency dropped.
+$
+```
+
+### What happens when you type `make`
+
+* Make reads `Makefile`
+* determines target(s) to execute
+* builds DAG/topo sort
+* execute in order (potentially in parallel)
 
 ### Why is a Makefile better than a shell script?
 
@@ -157,7 +183,8 @@ You might get fancy and add some features to compare m-times in your shell
 script. Maybe you add a function called `build_if_newer` and get 60% of the
 functionality of Make. This will work. But now you have to reason about an
 ever-growing shell script and if it perfectly implements your ideal build
-semantics. And Make will do it better still.
+semantics. And Make will do it better still -- Make already has built-in
+parallelism. Does your shell script?
 
 Make has been around a long time and its performance and correctness are
 well understood. Its interface is well understood, too; people who know Make
