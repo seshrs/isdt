@@ -69,7 +69,7 @@ able to get away with re-typing the same command and building everything each
 time for CS 11, this might not be the case in a larger project. This could be
 the difference between a twelve-hour build and a two-minute build.
 
-### How does it solve it?
+### How does do they solve it?
 
 Build systems tend to operate around once core principle: specify end results
 and what their component parts are and then let the tooling do the repetitive
