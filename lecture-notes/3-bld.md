@@ -158,7 +158,8 @@ succession[^different-shells] to build the target. In this case, the two recipes
 -- `gcc main.c` and `mv a.out mybinary` will run one after another.
 
 [^different-shells]: They are run in different shell processes, so state like
-    variables and working directory do not persist between commands.
+    variables and working directory do not persist between commands (`cd` won't
+    work).
 
 This is a bit of a silly example since `gcc` has a `-o` option to specify the
 output filename, but there are certainly situations where multiple shell
