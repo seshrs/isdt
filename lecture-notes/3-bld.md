@@ -270,8 +270,6 @@ automatically with the least amount of steps.
 You will notice that all of this typing is getting cumbersome. We will talk
 about a solution to this repetition later!
 
-TODO: Maybe notes on Rust here?
-
 ### The dependency graph
 
 a DAG, just like Git uses!
