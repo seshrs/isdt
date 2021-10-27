@@ -250,7 +250,7 @@ $
 Now if you change `file2.c`, you need only re-run `gcc -c file2.c` and the
 linking step, which together should be much faster than recompiling everything.
 
-It's hard to keep track of this manually, so we can build Make recipes to
+It's hard to keep track of this manually, so we can write Make recipes to
 handle this for us:
 
 ```
