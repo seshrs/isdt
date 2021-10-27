@@ -132,7 +132,11 @@ shortcuts that make building C projects easier.
 
 ## Lecture 2
 
-### Targets and rules
+See the [Make
+documentation](https://www.gnu.org/software/make/manual/html_node/index.html)
+which is very thorough and helpful.
+
+### Targets and recipes
 
 *Targets* are the core of a Makefile. They are the results you need to
 eventually build; the names of the files on disk you want to see by the end of
@@ -140,7 +144,7 @@ the build process[^phony]. In the example below, a Makefile has a target called
 `mybinary` -- the name preceding the colon (`:`).
 
 [^phony]: Not always; sometimes there are "phony" targets that are names for
-    batches of rules and do not produce files.
+    batches of recipes and do not produce files.
 
 ```
 mybinary:
@@ -148,9 +152,9 @@ mybinary:
     mv a.out mybinary
 ```
 
-It also has *rules* to build that target: `gcc main.c`. The rules section
+It also has *recipes* to build that target: `gcc main.c`. The recipes section
 consists of a list of shell commands that are run in
-succession[^different-shells] to build the target. In this case, the two rules
+succession[^different-shells] to build the target. In this case, the two recipes
 -- `gcc main.c` and `mv a.out mybinary` will run one after another.
 
 [^different-shells]: They are run in different shell processes, so state like
@@ -188,7 +192,7 @@ $
 
 This is because there is no way for Make to know about the implicit
 relationship between `mybinary` and `main.c`. As far as Make is concerned, the
-contents of the rules are opaque shell commands; it does not attempt to
+contents of the recipes are opaque shell commands; it does not attempt to
 introspect on them, nor does it have an innate idea of what `gcc` means. You,
 the programmer, have to specify the relationship manually.
 
@@ -242,8 +246,8 @@ $
 Now if you change `file2.c`, you need only re-run `gcc -c file2.c` and the
 linking step, which together should be much faster than recompiling everything.
 
-It's hard to keep track of this manually, so we can build Make rules to handle
-this for us:
+It's hard to keep track of this manually, so we can build Make recipes to
+handle this for us:
 
 ```
 mybinary: file0.o file1.o file2.o  # and so on
