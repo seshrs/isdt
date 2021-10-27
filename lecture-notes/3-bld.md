@@ -236,7 +236,10 @@ will still end up building all of the other C files again[^c-vs-header]. For
 this reason, it is possible to compile each file into a corresponding *object
 file* and then link those together:
 
-[^c-vs-header]: TODO note here about changing C files vs header files
+[^c-vs-header]: If you have a bunch of C files that include a header, you
+    *will* want to rebuild them if you change the header. This is because C's
+    `include` mechanism is a textual copy&amp;paste process early in the
+    compilation pipeline.
 
 ```
 $ gcc -c file0.c file1.c ... file9.c
