@@ -33,7 +33,7 @@ seconds because the system knows the purpose of each file it produces and how
 those files flow into each other. As a result, it can simply skip steps it
 knows haven't changed!
 
-[^build-process] If you're used to C++, this probably brings to mind compiling
+[^build-process]: If you're used to C++, this probably brings to mind compiling
     your code with `g++`, `clang++`, or the like. And for C++ and other
     compiled languages, compilation is indeed a core step of any build. But
     that doesn't mean that there's no such thing as a "build" for other
